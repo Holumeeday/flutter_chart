@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pie_chart/pie_chart.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
-
 import '../widgets/acitve_user.dart';
 import '../widgets/projectwise_user.dart';
+import '../widgets/sms_usage.dart';
 
 
 class Dashboard extends StatefulWidget {
@@ -17,23 +14,16 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   late List<GDPData> _chartData;
   late List<ProjectUser> _projectData;
+  late List<SmsUsage> _smsUsageData;
 
   @override
   void initState() {
     _chartData = getChartData();
     _projectData = getProjectUserData();
+    _smsUsageData = getSmsUsageData();
     super.initState();
   }
 
-  final dataMap = <String, double>{
-    "Flutter": 5,
-  };
-
-  final colorList = <Color>[
-    Colors.greenAccent,
-    Colors.blue,
-    Colors.amberAccent,
-  ];
 
 
   @override
@@ -42,10 +32,10 @@ class _DashboardState extends State<Dashboard> {
 
       appBar: AppBar(
         title: Row(
-          children: [
+          children: const [
             Icon(Icons.camera, size: 27, color: Colors.white,),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding:  EdgeInsets.all(10.0),
               child: Text('Acrobuild', style: TextStyle(color: Colors.white, fontSize: 20),),
             )
           ],
@@ -77,7 +67,7 @@ class _DashboardState extends State<Dashboard> {
               Padding(
                 padding: const EdgeInsets.all(7.0),
                 child: Row(
-                  children: [
+                  children: const[
                     Text('Admin', style: TextStyle(fontSize: 15, color: Colors.grey),),
                     Icon(Icons.arrow_forward_ios_rounded, size: 15, ),
                     Text('Dashboard', style: TextStyle(fontSize: 18, color: Colors.black),),
@@ -85,17 +75,20 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
 
-              SizedBox(height: 15,),
+            const  SizedBox(height: 15,),
               //Active User
               ChartCard(chartData: _chartData, topic: 'Active Users', description: 'Visually departs how many registered users are active to a project.',),
-              SizedBox(height: 15,),
+             const SizedBox(height: 15,),
               //Project wise User
               ProjectWise_ChartCard(projectData: _projectData, title: 'Project Wise Users', description: 'Describes the number of users allocated per project.',),
-              SizedBox(height: 15,),
+             const SizedBox(height: 15,),
               //Sms usage
-              ChartCard(chartData: _chartData, topic: 'SMS Usage', description: 'Stat for your SMS usage(as per your subscription and/or offer avail',),
-              SizedBox(height: 15,),
+              SmsUsageCard(smsUsageData: _smsUsageData, title: 'SMS Usage', description: 'Stat for your SMS usage(as per your subscription and/or offer avail',)
               //Email usage
+
+            // If the data was live i will use the MVC pattern where the services will be called using http request
+              // in services and also Future builder in the dashboard view to display the data
+
 
             ],
           ),
@@ -116,15 +109,12 @@ class _DashboardState extends State<Dashboard> {
 
 
 
-
 class GDPData{
   GDPData(this.noOfActiveUser, this.inActiveUser);
   final int noOfActiveUser;
   final String inActiveUser;
 
 }
-
-
 
 
 List<ProjectUser> getProjectUserData(){
@@ -138,9 +128,26 @@ List<ProjectUser> getProjectUserData(){
 }
 
 
-
 class ProjectUser{
   ProjectUser(this.allocatedUser, this.nonAllocatedUser);
   final int allocatedUser;
   final String nonAllocatedUser;
+}
+
+
+List<SmsUsage> getSmsUsageData(){
+  final List<SmsUsage> smsUsageData = [
+    SmsUsage(10, 'Transactional',),
+    SmsUsage(20, 'Promotional',),
+
+  ];
+  return smsUsageData;
+}
+
+
+
+class SmsUsage{
+  SmsUsage(this.promotional, this.transactional);
+  final int promotional;
+  final String transactional;
 }
