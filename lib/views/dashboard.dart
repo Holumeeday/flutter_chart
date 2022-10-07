@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import '../models/active_user_model.dart';
+import '../models/email_usage_model.dart';
 import '../widgets/acitve_user.dart';
+import '../widgets/emai_usuage.dart';
 import '../widgets/projectwise_user.dart';
 import '../widgets/sms_usage.dart';
 
@@ -15,12 +19,14 @@ class _DashboardState extends State<Dashboard> {
   late List<GDPData> _chartData;
   late List<ProjectUser> _projectData;
   late List<SmsUsage> _smsUsageData;
+  late List<EmailUsage> _emailUsageData;
 
   @override
   void initState() {
     _chartData = getChartData();
     _projectData = getProjectUserData();
     _smsUsageData = getSmsUsageData();
+    _emailUsageData = getEmailUsageData();
     super.initState();
   }
 
@@ -83,8 +89,9 @@ class _DashboardState extends State<Dashboard> {
               ProjectWise_ChartCard(projectData: _projectData, title: 'Project Wise Users', description: 'Describes the number of users allocated per project.',),
              const SizedBox(height: 15,),
               //Sms usage
-              SmsUsageCard(smsUsageData: _smsUsageData, title: 'SMS Usage', description: 'Stat for your SMS usage(as per your subscription and/or offer avail',)
+              SmsUsageCard(smsUsageData: _smsUsageData, title: 'SMS Usage', description: 'Stat for your SMS usage(as per your subscription and/or offer available',),
               //Email usage
+            EmailUsageCard(emailUsageData: _emailUsageData, title: 'Email Usage', description: 'Stat for your SMS usage(as per your subscription and/or offer available',)
 
             // If the data was live i will use the MVC pattern where the services will be called using http request
               // in services and also Future builder in the dashboard view to display the data
@@ -109,12 +116,7 @@ class _DashboardState extends State<Dashboard> {
 
 
 
-class GDPData{
-  GDPData(this.noOfActiveUser, this.inActiveUser);
-  final int noOfActiveUser;
-  final String inActiveUser;
 
-}
 
 
 List<ProjectUser> getProjectUserData(){
@@ -151,3 +153,14 @@ class SmsUsage{
   final int promotional;
   final String transactional;
 }
+
+
+List<EmailUsage> getEmailUsageData(){
+  final List<EmailUsage> emailUsageData = [
+    EmailUsage(50, 'Transactional',),
+    EmailUsage(20, 'Promotional',),
+
+  ];
+  return emailUsageData;
+}
+

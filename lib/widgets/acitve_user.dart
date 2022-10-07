@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../models/active_user_model.dart';
 import '../views/dashboard.dart';
 
 
