@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import '../models/active_user_model.dart';
 import '../models/email_usage_model.dart';
+import '../widgets/NavigationDrawer.dart';
 import '../widgets/acitve_user.dart';
 import '../widgets/emai_usuage.dart';
 import '../widgets/projectwise_user.dart';
@@ -35,28 +35,72 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: Drawer(
+      child: ListView(
+        // Important: Remove any padding from the ListView.
+        padding: EdgeInsets.zero,
+        children: [
+           DrawerHeader(
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundImage: AssetImage('img/profile.jpeg')
+                ),
+                SizedBox(width: 10,),
+                Text('Zen Reality', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
+                SizedBox(width: 4,),
+                Icon(Icons.arrow_drop_down_sharp, color: Colors.white, size: 25,)
+              ],
+            ),
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.home,
+            ),
+            title: const Text('Page 1'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.train,
+            ),
+            title: const Text('Page 2'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    ),
 
       appBar: AppBar(
-        title: Row(
-          children: const [
-            Icon(Icons.camera, size: 27, color: Colors.white,),
-            Padding(
-              padding:  EdgeInsets.all(10.0),
-              child: Text('Acrobuild', style: TextStyle(color: Colors.white, fontSize: 20),),
-            )
-          ],
-        ),
+          title: Expanded(
+            child: Row(
+            children: const [
+              Icon(Icons.camera, size: 22, color: Colors.white,),
+              SizedBox(width: 7,),
+              Text('Acrobuild', style: TextStyle(color: Colors.white, fontSize: 20),)
+            ],
+          ),
+          ),
+      
         actions:  const [
           Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(5.0),
             child:  Icon(Icons.search, size: 27, color: Colors.white,),
           ),
           Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(5.0),
             child: Icon(Icons.notifications_none_outlined, size: 27, color: Colors.white,),
           ),
           Padding(
-            padding: EdgeInsets.only(right: 30, left: 10),
+            padding: EdgeInsets.only(right: 25, left: 10),
             child: CircleAvatar(
               backgroundImage: AssetImage('img/profile.jpeg'),
             ),
@@ -84,14 +128,16 @@ class _DashboardState extends State<Dashboard> {
             const  SizedBox(height: 15,),
               //Active User
               ChartCard(chartData: _chartData, topic: 'Active Users', description: 'Visually departs how many registered users are active to a project.',),
-             const SizedBox(height: 15,),
+            const SizedBox(height: 15,),
               //Project wise User
               ProjectWise_ChartCard(projectData: _projectData, title: 'Project Wise Users', description: 'Describes the number of users allocated per project.',),
-             const SizedBox(height: 15,),
+            const SizedBox(height: 15,),
               //Sms usage
               SmsUsageCard(smsUsageData: _smsUsageData, title: 'SMS Usage', description: 'Stat for your SMS usage(as per your subscription and/or offer available',),
+            const SizedBox(height: 15,),
               //Email usage
-            EmailUsageCard(emailUsageData: _emailUsageData, title: 'Email Usage', description: 'Stat for your SMS usage(as per your subscription and/or offer available',)
+              EmailUsageCard(emailUsageData: _emailUsageData, title: 'Email Usage', description: 'Stat for your SMS usage(as per your subscription and/or offer available',),
+            const SizedBox(height: 25,),
 
             // If the data was live i will use the MVC pattern where the services will be called using http request
               // in services and also Future builder in the dashboard view to display the data
