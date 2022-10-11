@@ -26,13 +26,16 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: Colors.blueAccent,
       body: Column(
         children: [
-          Container(
-            height: 200,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              color: Colors.white
+          ClipPath(
+            clipper: CustomClipPath(),
+            child: Container(
+              height: 200,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Colors.white
+              ),
+              child: Image.asset('img/logo.png'),
             ),
-            child: Image.asset('img/logo.png'),
           ),
           Form(
             key: _formkey,
@@ -307,12 +310,14 @@ class CustomClipPath extends CustomClipper<Path>{
 
 
     final path = Path();
-    path.moveTo(size.width*0.2871429,size.height*0.2020000);
-    path.quadraticBezierTo(size.width*.2839429,size.height*0.2944800,size.width*0.2838286,size.height*0.3039400);
-    path.quadraticBezierTo(size.width*0.5282714,size.height*0.4064600,size.width*0.6684714,size.height*0.4492200);
-    path.quadraticBezierTo(size.width*0.7484429,size.height*0.4209600,size.width*0.7827571,size.height*0.2029000);
-    path.lineTo(size.width*0.2883143,size.height*0.2017800);
-    path.quadraticBezierTo(size.width*0.2880214,size.height*0.2018350,size.width*0.2871429,size.height*0.2020000);
+    path.moveTo(size.width,size.height*0.5041800);
+    path.quadraticBezierTo(size.width*0.8977429,size.height*0.7920600,size.width*0.8621857,size.height*0.8939600);
+    path.quadraticBezierTo(size.width*0.8070286,size.height*1.0067800,size.width*0.6446857,size.height*0.9788200);
+    path.lineTo(0,size.height*0.7872400);
+    path.lineTo(0,0);
+    path.lineTo(size.width,0);
+
+
 
     path.close();
     return path;
