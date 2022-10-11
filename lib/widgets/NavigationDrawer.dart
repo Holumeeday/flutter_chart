@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chart/views/dashboard.dart';
+import 'package:flutter_chart/views/login_page.dart';
 
 
 class NavigationDrawerWidget extends StatefulWidget {
@@ -11,7 +12,7 @@ class NavigationDrawerWidget extends StatefulWidget {
 }
 
 class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
-  final padding =  EdgeInsets.symmetric(horizontal: 20);
+  final padding = const EdgeInsets.symmetric(horizontal: 20);
 
   // final user = FirebaseAuth.instance.currentUser;
   String  email = "";
@@ -41,75 +42,206 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Material(
-        color: Colors.red,
-        child: ListView(
-          padding: padding,
-          children: [
-            const SizedBox(height: 28,),
-            buildHeader(
-                name: name,
-                email: email,
-                urlmage: "img/profile.jpeg" ,
-                onClick: (){
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Dashboard()
-                  ));
-                }
+      child: ListView(
+        // Important: Remove any padding from the ListView.
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: const BoxDecoration(
+              color: Colors.blue,
             ),
-            const SizedBox(height: 8,),
-            buildMenuItem(
-                text: 'Home',
-                icon: Icons.home,
-                onClicked: ()=> selectedItem(context, 0)
-            ),
-            const SizedBox(height: 16,),
-            buildMenuItem(
-                text: 'My orders',
-                icon: Icons.wallet_giftcard,
-                onClicked: ()=> selectedItem(context, 2)
-            ),
-            const SizedBox(height: 16,),
-            buildMenuItem(
-                text: 'Transaction',
-                icon: Icons.update,
-                onClicked: ()=> selectedItem(context, 3)
-            ),
-            const SizedBox(height: 16,),
-            buildMenuItem(
-                text: 'Privacy policy',
-                icon: Icons.lock,
-                onClicked: ()=> selectedItem(context, 4)
-            ),
-            const SizedBox(height: 16,),
-            buildMenuItem(
-                text: 'About us ',
-                icon: Icons.transfer_within_a_station_sharp,
-                onClicked: ()=> selectedItem(context, 4)
-            ),
-            const SizedBox(height: 16,),
-            buildMenuItem(
-                text: 'Contact Us ',
-                icon: Icons.perm_contact_calendar_rounded,
-                onClicked: ()=> selectedItem(context, 1)
-            ),
-            const SizedBox(height: 24,),
-            Divider(color: Colors.white,),
-            const SizedBox(height: 24,),
+            child:  ExpansionTile(
+              collapsedIconColor: Colors.white,
+              title: Row(
+                children: const[
+                  CircleAvatar(
+                      radius: 30,
+                      backgroundImage: AssetImage('img/profile.jpeg')
+                  ),
+                  SizedBox(width: 10,),
+                  Text('Zen Reality', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
 
-            buildMenuItem(
-                text: 'Settings',
-                icon: Icons.settings,
-                onClicked: ()=> selectedItem(context, 5)
+                ],
+              ),
             ),
-            const SizedBox(height: 16,),
-            buildMenuItem(
-                text: 'Logout',
-                icon: Icons.logout,
-                onClicked: ()=> selectedItem(context, 6)
+          ),
+          ExpansionTile(
+            title: Row(
+              children: const[
+                SizedBox(width: 18,),
+                Icon(Icons.people, size: 20, color: Colors.grey,),
+                SizedBox(width: 11,),
+                Text('Admin', style: TextStyle(fontSize: 16),),
+              ],
             ),
-          ],
-        ),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.dashboard, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('Dashboard', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const   SizedBox(height: 13,),
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.add_location, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('Company', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const  SizedBox(height: 13,),
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.contact_page, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('Roles & Permission', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const SizedBox(height: 13,),
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.supervised_user_circle_rounded, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('User', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const SizedBox(height: 13,),
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.contact_mail_sharp, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('Referrals', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const SizedBox(height: 13,),
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.card_travel_outlined, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('Activities', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const SizedBox(height: 13,),
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.map, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('Automation', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const SizedBox(height: 13,),
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.description, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('Project', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const SizedBox(height: 13,),
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.topic, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('Wings', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const SizedBox(height: 13,),
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.stream, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('Inventory', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const SizedBox(height: 13,),
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.settings, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('Settings', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const   SizedBox(height: 13,),
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.supervised_user_circle_rounded, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('Channel Partner Firms', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const   SizedBox(height: 13,),
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.score, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('Channel Partner', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const  SizedBox(height: 16,),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          ExpansionTile(
+            title: Row(
+              children: const[
+                SizedBox(width: 18,),
+                Icon(Icons.transfer_within_a_station_sharp, size: 20, color: Colors.grey,),
+                SizedBox(width: 11,),
+                Text('Marketing', style: TextStyle(fontSize: 16),),
+              ],
+            ),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Row(
+                        children: const[
+                          SizedBox(width: 40,),
+                          Icon(Icons.dashboard, size: 13, color: Colors.grey,),
+                          SizedBox(width: 7,),
+                          Text('Dashboard', style: TextStyle(fontSize: 12),),
+                        ],
+                      ),
+                      const  SizedBox(height: 16,),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+
+        ],
       ),
     );
   }
@@ -124,20 +256,20 @@ Widget buildHeader({
     InkWell(
       onTap: onClick,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 40),
+        padding: const EdgeInsets.symmetric(vertical: 40),
         child: Row(
           children: [
             CircleAvatar(
               radius: 30,
               backgroundImage: AssetImage(urlmage),
             ),
-            SizedBox(width: 20,),
+            const SizedBox(width: 20,),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name, style: TextStyle(fontSize: 20, color: Colors.brown),),
+                Text(name, style: const TextStyle(fontSize: 20, color: Colors.brown),),
                 const SizedBox(height: 4,),
-                Text(email, style: TextStyle(color: Colors.brown, fontSize: 14),)
+                Text(email, style: const TextStyle(color: Colors.brown, fontSize: 14),)
               ],
             )
           ],
@@ -151,12 +283,12 @@ Widget buildMenuItem({
   required IconData icon,
   VoidCallback? onClicked
 }){
-  final color = Colors.brown;
-  final hoverColor = Colors.white24;
+  const color = Colors.blueAccent;
+  const hoverColor = Colors.white24;
 
   return ListTile(
     leading: Icon(icon, color: color,),
-    title: Text(text, style: TextStyle(color: color)),
+    title: Text(text, style: const TextStyle(color: color)),
     hoverColor: hoverColor,
     onTap: onClicked,
   );
@@ -176,35 +308,6 @@ void selectedItem(BuildContext context, int index){
           builder: (context) => Dashboard()
       ));
       break;
-    case 2:
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Dashboard()
-      ));
-      break;
-    case 3:
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Dashboard()
-      ));
-      break;
-    case 4:
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Dashboard()
-      ));
-      break;
-    case 5:
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Dashboard()
-      ));
-      break;
-    case 6:
-      FirebaseAuth.instance.signOut().then((value) {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => Dashboard()
-        ));
-      });
-
-      break;
-
 
   }
 }

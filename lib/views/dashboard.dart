@@ -35,61 +35,17 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(
-      child: ListView(
-        // Important: Remove any padding from the ListView.
-        padding: EdgeInsets.zero,
-        children: [
-           DrawerHeader(
-            decoration: const BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 30,
-                  backgroundImage: AssetImage('img/profile.jpeg')
-                ),
-                SizedBox(width: 10,),
-                Text('Zen Reality', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),),
-                SizedBox(width: 4,),
-                Icon(Icons.arrow_drop_down_sharp, color: Colors.white, size: 25,)
-              ],
-            ),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.home,
-            ),
-            title: const Text('Page 1'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.train,
-            ),
-            title: const Text('Page 2'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      ),
-    ),
+        drawer: NavigationDrawerWidget(),
 
       appBar: AppBar(
-          title: Expanded(
-            child: Row(
-            children: const [
-              Icon(Icons.camera, size: 22, color: Colors.white,),
-              SizedBox(width: 7,),
-              Text('Acrobuild', style: TextStyle(color: Colors.white, fontSize: 20),)
-            ],
+          title: Row(
+          children: const [
+            Icon(Icons.camera, size: 20, color: Colors.white,),
+            SizedBox(width: 5,),
+            Text('Acrobuild', style: TextStyle(color: Colors.white, fontSize: 18),)
+          ],
           ),
-          ),
-      
+
         actions:  const [
           Padding(
             padding: EdgeInsets.all(5.0),
